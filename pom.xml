@@ -11,6 +11,7 @@
 
     <modules>
 
+        <module>flink-http-base</module>
     </modules>
 
     <properties>
@@ -22,13 +23,16 @@
 
         <flink.version>1.13.6</flink.version>
         <jackson.version>2.13.2</jackson.version>
+        <lombok.version>1.18.16</lombok.version>
         <milky.version>1.0.6_8</milky.version>
+        <okhttp.version>3.14.9</okhttp.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
             <optional>true</optional>
         </dependency>
     </dependencies>
@@ -47,6 +51,12 @@
                 <groupId>cn.sliew</groupId>
                 <artifactId>milky-common</artifactId>
                 <version>${milky.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>${okhttp.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
