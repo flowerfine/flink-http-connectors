@@ -2,7 +2,7 @@ package cn.sliew.flink.http.connectors.base.source.reader;
 
 import cn.sliew.flink.http.connectors.base.source.HttpSourceSplit;
 import cn.sliew.flink.http.connectors.base.source.meta.offset.CheckpointedPosition;
-import cn.sliew.flink.http.connectors.base.source.util.HttpSourceParameters;
+import cn.sliew.flink.http.connectors.base.params.HttpSourceParameters;
 import cn.sliew.flink.http.connectors.base.source.util.RecordsAndPosition;
 import org.apache.flink.api.common.typeinfo.TypeInformation;
 import org.apache.flink.api.java.typeutils.ResultTypeQueryable;

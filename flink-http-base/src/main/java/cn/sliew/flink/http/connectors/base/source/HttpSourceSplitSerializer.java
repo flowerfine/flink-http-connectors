@@ -19,8 +19,7 @@
 package cn.sliew.flink.http.connectors.base.source;
 
 import cn.sliew.flink.http.connectors.base.source.meta.offset.CheckpointedPosition;
-import cn.sliew.flink.http.connectors.base.source.util.HttpSourceParameters;
-import org.apache.flink.annotation.PublicEvolving;
+import cn.sliew.flink.http.connectors.base.source.meta.offset.CheckpointedPositionSerializer;
 import org.apache.flink.core.io.SimpleVersionedSerializer;
 import org.apache.flink.core.memory.DataInputDeserializer;
 import org.apache.flink.core.memory.DataOutputSerializer;
@@ -33,20 +32,25 @@ import static org.apache.flink.util.Preconditions.checkArgument;
 /**
  * A serializer for the {@link HttpSourceSplit}.
  */
-@PublicEvolving
-public final class HttpSourceSplitSerializer implements SimpleVersionedSerializer<HttpSourceSplit> {
+public final class HttpSourceSplitSerializer
+        implements SimpleVersionedSerializer<HttpSourceSplit>, CheckpointedPositionSerializer {
 
     private static final ThreadLocal<DataOutputSerializer> SERIALIZER_CACHE =
             ThreadLocal.withInitial(() -> new DataOutputSerializer(64));
 
     private static final int VERSION = 1;
 
-    private final CheckpointedPosition.Provider provider;
+    private final CheckpointedPosition.Provider positionFactory;
 
     // ------------------------------------------------------------------------
 
-    public HttpSourceSplitSerializer(CheckpointedPosition.Provider provider) {
-        this.provider = provider;
+    public HttpSourceSplitSerializer(CheckpointedPosition.Provider positionFactory) {
+        this.positionFactory = positionFactory;
+    }
+
+    @Override
+    public CheckpointedPosition.Provider getPositionProvider() {
+        return positionFactory;
     }
 
     @Override
@@ -68,13 +72,10 @@ public final class HttpSourceSplitSerializer implements SimpleVersionedSerialize
         final DataOutputSerializer out = SERIALIZER_CACHE.get();
         out.writeUTF(split.splitId());
 
-        final HttpSourceParameters parameters = split.getParameters();
-        parameters.write(out);
-
         final Optional<CheckpointedPosition> position = split.getPosition();
         out.writeBoolean(position.isPresent());
         if (position.isPresent()) {
-            position.get().write(out);
+            writePosition(position.get(), out);
         }
 
         final byte[] result = out.getCopyOfBuffer();
@@ -99,17 +100,13 @@ public final class HttpSourceSplitSerializer implements SimpleVersionedSerialize
         final DataInputDeserializer in = new DataInputDeserializer(serialized);
         final String splitId = in.readUTF();
 
-        final HttpSourceParameters parameters = new HttpSourceParameters();
-        parameters.read(in);
-
         CheckpointedPosition position = null;
         if (in.readBoolean()) {
-            position = provider.create();
-            position.read(in);
+            position = readPosition(in);
         }
 
         // instantiate a new split and cache the serialized form
-        return new HttpSourceSplit(splitId, parameters, position, serialized);
+        return new HttpSourceSplit(splitId, position, serialized);
     }
 
 }

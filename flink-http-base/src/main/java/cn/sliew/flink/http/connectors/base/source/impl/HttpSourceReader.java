@@ -18,6 +18,7 @@
 
 package cn.sliew.flink.http.connectors.base.source.impl;
 
+import cn.sliew.flink.http.connectors.base.params.HttpSourceParameters;
 import cn.sliew.flink.http.connectors.base.source.HttpSourceSplit;
 import cn.sliew.flink.http.connectors.base.source.HttpSourceSplitState;
 import cn.sliew.flink.http.connectors.base.source.reader.BulkFormat;
@@ -30,7 +31,9 @@ import org.apache.flink.connector.base.source.reader.SingleThreadMultiplexSource
 
 import java.util.Map;
 
-/** A {@link SourceReader} that read records from {@link HttpSourceSplit}. */
+/**
+ * A {@link SourceReader} that read records from {@link HttpSourceSplit}.
+ */
 @Internal
 public final class HttpSourceReader<T, SplitT extends HttpSourceSplit>
         extends SingleThreadMultiplexSourceReaderBase<RecordsAndPosition<T>, T, SplitT, HttpSourceSplitState<SplitT>> {
@@ -38,9 +41,10 @@ public final class HttpSourceReader<T, SplitT extends HttpSourceSplit>
     public HttpSourceReader(
             SourceReaderContext readerContext,
             BulkFormat<T, SplitT> readerFormat,
+            HttpSourceParameters parameters,
             Configuration config) {
         super(
-                () -> new HttpSourceSplitReader<>(config, readerFormat),
+                () -> new HttpSourceSplitReader<>(config, parameters, readerFormat),
                 new HttpSourceRecordEmitter<>(),
                 config,
                 readerContext);

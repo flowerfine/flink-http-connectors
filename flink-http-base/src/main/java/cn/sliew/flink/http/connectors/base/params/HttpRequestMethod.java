@@ -2,7 +2,7 @@
 // Licensed under the BSD-2 Clause license.
 // See LICENSE in the project root for license information.
 
-package cn.sliew.flink.http.connectors.base.source.util;
+package cn.sliew.flink.http.connectors.base.params;
 
 import cn.sliew.milky.common.parse.placeholder.PropertyPlaceholder;
 import cn.sliew.milky.common.util.JacksonUtil;

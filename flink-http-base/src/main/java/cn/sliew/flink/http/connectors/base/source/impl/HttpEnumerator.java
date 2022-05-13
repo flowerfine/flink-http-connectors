@@ -4,7 +4,7 @@ import cn.sliew.flink.http.connectors.base.source.HttpSourceSplit;
 import cn.sliew.flink.http.connectors.base.source.PendingSplitsCheckpoint;
 import cn.sliew.flink.http.connectors.base.source.assigners.HttpSourceSplitAssigner;
 import cn.sliew.flink.http.connectors.base.source.enumerator.HttpSourceSplitEnumerator;
-import cn.sliew.flink.http.connectors.base.source.util.HttpSourceParameters;
+import cn.sliew.flink.http.connectors.base.params.HttpSourceParameters;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.flink.api.connector.source.SplitEnumerator;
 import org.apache.flink.api.connector.source.SplitEnumeratorContext;

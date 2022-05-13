@@ -1,7 +1,7 @@
 package cn.sliew.flink.http.connectors.base.source.enumerator;
 
 import cn.sliew.flink.http.connectors.base.source.HttpSourceSplit;
-import cn.sliew.flink.http.connectors.base.source.util.HttpSourceParameters;
+import cn.sliew.flink.http.connectors.base.params.HttpSourceParameters;
 
 import java.io.Serializable;
 import java.util.Collection;

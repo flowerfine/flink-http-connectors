@@ -1,5 +1,6 @@
-package cn.sliew.flink.http.connectors.base.source.util;
+package cn.sliew.flink.http.connectors.base.source.enumerator;
 
+import cn.sliew.flink.http.connectors.base.params.HttpSourceParameters;
 import cn.sliew.flink.http.connectors.base.source.HttpSourceSplit;
 import cn.sliew.flink.http.connectors.base.source.meta.offset.CheckpointedPosition;
 

@@ -7,7 +7,7 @@ import cn.sliew.flink.http.connectors.base.source.impl.HttpEnumerator;
 import cn.sliew.flink.http.connectors.base.source.impl.HttpSourceReader;
 import cn.sliew.flink.http.connectors.base.source.reader.BulkFormat;
 import cn.sliew.flink.http.connectors.base.source.meta.offset.CheckpointedPosition;
-import cn.sliew.flink.http.connectors.base.source.util.HttpSourceParameters;
+import cn.sliew.flink.http.connectors.base.params.HttpSourceParameters;
 import org.apache.flink.api.connector.source.*;
 import org.apache.flink.core.io.SimpleVersionedSerializer;
 
@@ -17,12 +17,22 @@ import java.util.Collection;
 public class HttpSource<T, SplitT extends HttpSourceSplit>
         implements Source<T, SplitT, PendingSplitsCheckpoint<SplitT>> {
 
+    private final HttpSourceParameters parameters;
+    private final CheckpointedPosition.Provider positionFactory;
+
+    private final HttpSourceSplitSerializer httpSourceSplitSerializer;
+
     private final HttpSourceSplitEnumerator.Provider splitEnumeratorFactory = null;
     private final HttpSourceSplitAssigner.Provider splitAssignerFactory = splits -> new SimpleHttpSourceSplitAssigner(new ArrayList(splits));
-    private final CheckpointedPosition.Provider checkpointedPositionFactory = null;
+
     private final BulkFormat<T, SplitT> readerFormat = null;
 
-    private final HttpSourceParameters parameters = null;
+    public HttpSource(HttpSourceParameters parameters,
+                      CheckpointedPosition.Provider positionFactory) {
+        this.parameters = parameters;
+        this.positionFactory = positionFactory;
+        this.httpSourceSplitSerializer = new HttpSourceSplitSerializer(positionFactory);
+    }
 
     @Override
     public Boundedness getBoundedness() {
@@ -32,7 +42,7 @@ public class HttpSource<T, SplitT extends HttpSourceSplit>
     @Override
     public SourceReader<T, SplitT> createReader(SourceReaderContext context) throws Exception {
         return new HttpSourceReader<>(
-                context, readerFormat, context.getConfiguration());
+                context, readerFormat, parameters, context.getConfiguration());
     }
 
     @Override
@@ -60,7 +70,7 @@ public class HttpSource<T, SplitT extends HttpSourceSplit>
 
     @Override
     public SimpleVersionedSerializer<SplitT> getSplitSerializer() {
-        return (SimpleVersionedSerializer<SplitT>) new HttpSourceSplitSerializer(checkpointedPositionFactory);
+        return (SimpleVersionedSerializer<SplitT>) httpSourceSplitSerializer;
     }
 
     @Override
