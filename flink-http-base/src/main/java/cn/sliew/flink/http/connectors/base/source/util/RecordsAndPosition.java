@@ -1,5 +1,6 @@
 package cn.sliew.flink.http.connectors.base.source.util;
 
+import cn.sliew.flink.http.connectors.base.source.meta.offset.CheckpointedPosition;
 import lombok.Getter;
 
 import java.util.Collection;

@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package cn.sliew.flink.http.connectors.base.source.util;
+package cn.sliew.flink.http.connectors.base.source.meta.offset;
 
 import org.apache.flink.core.io.IOReadableWritable;
 
@@ -25,7 +25,7 @@ import java.io.Serializable;
 /**
  * The position of a reader, to be stored in a checkpoint.
  */
-public interface CheckpointedPosition extends IOReadableWritable, Serializable {
+public interface CheckpointedPosition extends IOReadableWritable, Comparable<Offset>, Serializable {
 
     /**
      * Factory for the {@code CheckpointedPosition}.

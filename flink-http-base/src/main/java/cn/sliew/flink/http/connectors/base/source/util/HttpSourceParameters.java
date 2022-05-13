@@ -9,16 +9,16 @@ import java.io.Serializable;
 
 public class HttpSourceParameters implements IOReadableWritable, Serializable {
 
-    public Object[] getPathParameters() {
+    public Object[] getParameters() {
         return null;
     }
-    public Object[] getQueryParameters() {
+    public Object[] getQuerys() {
         return null;
     }
-    public Object[] getBodyParameters() {
+    public Object[] getBodys() {
         return null;
     }
-    public Object[] getHeaderParameters() {
+    public Object[] getHeaders() {
         return null;
     }
 

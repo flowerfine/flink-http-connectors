@@ -1,6 +1,7 @@
 package cn.sliew.flink.http.connectors.base.source.util;
 
 import cn.sliew.flink.http.connectors.base.source.HttpSourceSplit;
+import cn.sliew.flink.http.connectors.base.source.meta.offset.CheckpointedPosition;
 
 import java.util.Collection;
 import java.util.function.Supplier;

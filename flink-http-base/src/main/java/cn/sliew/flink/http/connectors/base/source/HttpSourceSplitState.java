@@ -1,6 +1,6 @@
 package cn.sliew.flink.http.connectors.base.source;
 
-import cn.sliew.flink.http.connectors.base.source.util.CheckpointedPosition;
+import cn.sliew.flink.http.connectors.base.source.meta.offset.CheckpointedPosition;
 import cn.sliew.milky.common.exception.Rethrower;
 import org.apache.flink.util.InstantiationUtil;
 

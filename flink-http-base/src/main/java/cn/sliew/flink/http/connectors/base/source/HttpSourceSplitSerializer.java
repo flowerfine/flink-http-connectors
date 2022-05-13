@@ -18,7 +18,7 @@
 
 package cn.sliew.flink.http.connectors.base.source;
 
-import cn.sliew.flink.http.connectors.base.source.util.CheckpointedPosition;
+import cn.sliew.flink.http.connectors.base.source.meta.offset.CheckpointedPosition;
 import cn.sliew.flink.http.connectors.base.source.util.HttpSourceParameters;
 import org.apache.flink.annotation.PublicEvolving;
 import org.apache.flink.core.io.SimpleVersionedSerializer;
@@ -32,8 +32,6 @@ import static org.apache.flink.util.Preconditions.checkArgument;
 
 /**
  * A serializer for the {@link HttpSourceSplit}.
- *
- * @see FileSourceSplitSerializer
  */
 @PublicEvolving
 public final class HttpSourceSplitSerializer implements SimpleVersionedSerializer<HttpSourceSplit> {

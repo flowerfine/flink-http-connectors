@@ -2,7 +2,7 @@ package cn.sliew.flink.http.connectors.base.source.impl;
 
 import cn.sliew.flink.http.connectors.base.source.HttpSourceSplit;
 import cn.sliew.flink.http.connectors.base.source.reader.BulkFormat;
-import cn.sliew.flink.http.connectors.base.source.util.CheckpointedPosition;
+import cn.sliew.flink.http.connectors.base.source.meta.offset.CheckpointedPosition;
 import cn.sliew.flink.http.connectors.base.source.util.HttpSourceParameters;
 import cn.sliew.flink.http.connectors.base.source.util.RecordsAndPosition;
 import lombok.extern.slf4j.Slf4j;

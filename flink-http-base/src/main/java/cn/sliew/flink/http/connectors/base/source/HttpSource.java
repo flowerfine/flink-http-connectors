@@ -6,7 +6,7 @@ import cn.sliew.flink.http.connectors.base.source.enumerator.HttpSourceSplitEnum
 import cn.sliew.flink.http.connectors.base.source.impl.HttpEnumerator;
 import cn.sliew.flink.http.connectors.base.source.impl.HttpSourceReader;
 import cn.sliew.flink.http.connectors.base.source.reader.BulkFormat;
-import cn.sliew.flink.http.connectors.base.source.util.CheckpointedPosition;
+import cn.sliew.flink.http.connectors.base.source.meta.offset.CheckpointedPosition;
 import cn.sliew.flink.http.connectors.base.source.util.HttpSourceParameters;
 import org.apache.flink.api.connector.source.*;
 import org.apache.flink.core.io.SimpleVersionedSerializer;
